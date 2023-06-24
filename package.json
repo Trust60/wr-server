@@ -1,0 +1,35 @@
+{
+	"name": "workout-record",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon ./server.js",
+		"start": "node ./server.js"
+	},
+	"keywords": [
+		"workout",
+		"app"
+	],
+	"author": "Bohdan",
+	"license": "ISC",
+	"dependencies": {
+		"@faker-js/faker": "^8.0.2",
+		"@prisma/client": "^4.15.0",
+		"argon2": "^0.30.3",
+		"dotenv": "^16.1.4",
+		"express": "^4.18.2",
+		"express-async-handler": "^1.2.0",
+		"jsonwebtoken": "^9.0.0",
+		"npm": "^9.7.1",
+		"pg": "^8.11.0",
+		"yarn": "^1.22.19"
+	},
+	"devDependencies": {
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.22",
+		"prettier": "^2.8.8",
+		"prisma": "^4.15.0"
+	}
+}
