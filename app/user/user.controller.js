@@ -39,18 +39,21 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		}
 	})
 
-	res.json([
-		{
-			label: 'Minutes',
-			value: Math.ceil(countExerciseSetsCompleted * 4.1) || 0
-		},
-		{
-			label: 'Workouts',
-			value: workouts || 0
-		},
-		{
-			label: 'Kgs',
-			value: kgs._sum.weight || 0
-		}
-	])
+	res.json({
+		...user,
+		statistics: [
+			{
+				label: 'Minutes',
+				value: Math.ceil(countExerciseSetsCompleted * 4.1) || 0
+			},
+			{
+				label: 'Workouts',
+				value: workouts || 0
+			},
+			{
+				label: 'Kgs',
+				value: kgs._sum.weight || 0
+			}
+		]
+	})
 })
