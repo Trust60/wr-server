@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
-import { UserFields } from '../utils/user.utils.js'
+
 import { prisma } from '../prisma.js'
+import { UserFields } from '../utils/user.utils.js'
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
@@ -20,13 +21,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		}
 	})
 
-	const workouts = await prisma.workoutLog.count({
-		where: {
-			userId: req.user.id,
-			isCompleted: true
-		}
-	})
-
 	const kgs = await prisma.exerciseSet.aggregate({
 		where: {
 			exerciseLog: {
@@ -34,8 +28,16 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 			},
 			isCompleted: true
 		},
+
 		_sum: {
 			weight: true
+		}
+	})
+
+	const workouts = await prisma.workoutLog.count({
+		where: {
+			userId: user.id,
+			isCompleted: true
 		}
 	})
 
@@ -44,11 +46,11 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		statistics: [
 			{
 				label: 'Minutes',
-				value: Math.ceil(countExerciseSetsCompleted * 4.1) || 0
+				value: Math.ceil(countExerciseSetsCompleted * 2.3) || 0
 			},
 			{
 				label: 'Workouts',
-				value: workouts || 0
+				value: workouts
 			},
 			{
 				label: 'Kgs',

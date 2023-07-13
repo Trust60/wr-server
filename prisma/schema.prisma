@@ -40,13 +40,12 @@ model Exercise {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name     String
-  sets    Int
+  sets    Int  @default(0)
   iconPath String @map("icon_path")
 
   workouts Workout[]
 
-  exerciseLog   ExerciseLog? @relation(fields: [exerciseLogId], references: [id])
-  exerciseLogId Int?         @map("exercise_log_id")
+  exerciseLogs ExerciseLog[]
 }
 
 model ExerciseLog {
@@ -63,7 +62,8 @@ model ExerciseLog {
   workoutLog   WorkoutLog? @relation(fields: [workoutLogId], references: [id])
   workoutLogId Int?        @map("workout_log_id")
 
-  exercise Exercise[]
+  exercise   Exercise? @relation(fields: [exerciseId], references: [id])
+  exerciseId Int?      @map("exercise_id")
 
   @@map("Exercise_log")
 }
@@ -74,7 +74,7 @@ model ExerciseSet {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   weight      Int     @default(0)
-  repeat      Int     @default(0)
+  repeat      Int     @default(10)
   isCompleted Boolean @default(false) @map("is_completed")
 
   exerciseLog   ExerciseLog? @relation(fields: [exerciseLogId], references: [id])

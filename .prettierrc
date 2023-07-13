@@ -4,5 +4,14 @@
 	"useTabs": true,
 	"semi": false,
 	"singleQuote": true,
-	"arrowParens": "avoid"
+	"arrowParens": "avoid",
+	"importOrder": [
+		"<THIRD_PARTY_MODULES>",
+		"/routes/",
+		"/middleware/",
+		"^../(.*)",
+		"^./(.*)"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }

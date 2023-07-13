@@ -1,7 +1,8 @@
 export const UserFields = {
 	id: true,
-	name: true,
 	createdAt: true,
+	email: true,
+	images: true,
 	updatedAt: true,
-	images: true
+	name: true
 }

@@ -1,15 +1,16 @@
 import cors from 'cors'
 import dotenv from 'dotenv'
-import morgan from 'morgan'
-
 import express from 'express'
-import authRoutes from './app/auth/auth.routes.js'
-import userRoutes from './app/user/user.routes.js'
-import exerciseRoutes from './app/exercise/exercise.routes.js'
-import workoutRoutes from './app/workout/workout.routes.js'
+import morgan from 'morgan'
 import path from 'path'
-import { prisma } from './app/prisma.js'
+
 import { errorHandler, notFound } from './app/middleware/error.middleware.js'
+
+import authRoutes from './app/auth/auth.routes.js'
+import exerciseRoutes from './app/exercise/exercise.routes.js'
+import { prisma } from './app/prisma.js'
+import userRoutes from './app/user/user.routes.js'
+import workoutRoutes from './app/workout/workout.routes.js'
 
 dotenv.config()
 
@@ -22,7 +23,8 @@ async function main() {
 	app.use(express.json())
 
 	const __dirname = path.resolve()
-	app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
+	app.use('/uploads', express.static(path.join(__dirname, '/uploads/')))
 
 	app.use('/api/auth', authRoutes)
 	app.use('/api/users', userRoutes)
@@ -32,12 +34,12 @@ async function main() {
 	app.use(notFound)
 	app.use(errorHandler)
 
-	const PORT = 5000
+	const PORT = process.env.PORT || 5000
 
 	app.listen(
 		PORT,
 		console.log(
-			`Server running on ${process.env.NODE_ENV} mode on port ${PORT}`
+			`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
 		)
 	)
 }

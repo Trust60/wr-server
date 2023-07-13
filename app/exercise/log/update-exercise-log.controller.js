@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../../prisma.js'
 
 // @desc    Update exercise log set
@@ -10,7 +11,7 @@ export const updateExerciseLogSet = asyncHandler(async (req, res) => {
 	try {
 		const exerciseLogSet = await prisma.exerciseSet.update({
 			where: {
-				id: Number(req.params.id)
+				id: +req.params.id
 			},
 			data: {
 				weight,
@@ -18,11 +19,11 @@ export const updateExerciseLogSet = asyncHandler(async (req, res) => {
 				isCompleted
 			}
 		})
+
 		res.json(exerciseLogSet)
 	} catch (error) {
-		console.log(error)
 		res.status(404)
-		throw new Error('Exercise Log Set not found!')
+		throw new Error('Exercise log set not found!')
 	}
 })
 
@@ -35,19 +36,17 @@ export const completeExerciseLog = asyncHandler(async (req, res) => {
 	try {
 		const exerciseLog = await prisma.exerciseLog.update({
 			where: {
-				id: Number(req.params.id)
+				id: +req.params.id
 			},
 			data: {
 				isCompleted
 			},
-			include: {
-				exercise: true,
-				workoutLog: true
-			}
+			include: { exercise: true, workoutLog: true }
 		})
+
 		res.json(exerciseLog)
-	} catch {
+	} catch (error) {
 		res.status(404)
-		throw new Error('Exercise Log not found!')
+		throw new Error('Exercise log not found!')
 	}
 })
